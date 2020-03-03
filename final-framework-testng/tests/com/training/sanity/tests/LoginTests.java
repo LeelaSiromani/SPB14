@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
+import com.training.pom.HomePOM;
 import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
@@ -20,6 +21,7 @@ public class LoginTests {
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
+	private HomePOM homePOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -34,12 +36,12 @@ public class LoginTests {
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		loginPOM = new LoginPOM(driver); 
+		homePOM = new HomePOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
 	}
-	
 	@AfterMethod
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
@@ -47,8 +49,9 @@ public class LoginTests {
 	}
 	@Test
 	public void validLoginTest() {
-		loginPOM.sendUserName("admin");
-		loginPOM.sendPassword("admin@123");
+		homePOM.clickUserIcon();
+		loginPOM.sendUserName("test2@gmail.com");
+		loginPOM.sendPassword("Welcome2ibm");
 		loginPOM.clickLoginBtn(); 
 		screenShot.captureScreenShot("First");
 	}
